@@ -1,0 +1,46 @@
+-- SuperMart's board has requested a comprehensive Employee Sales Performance Dashboard for all delivered orders 
+-- placed between 1 January 2021 and 30 June 2024.
+
+WITH order_revenue AS (
+    SELECT
+        oi.order_id,
+        SUM(oi.quantity * oi.unit_price * (1 - oi.discount / 100.0)) AS order_total
+    FROM order_items oi
+    GROUP BY oi.order_id
+),
+
+employee_sales AS (
+    SELECT
+        o.employee_id,
+        COUNT(o.order_id) AS total_delivered_orders,
+        SUM(orv.order_total) AS total_revenue,
+        AVG(orv.order_total) AS avg_order_value,
+        MAX(orv.order_total) AS best_single_order
+    FROM orders o
+    JOIN order_revenue orv
+        ON o.order_id = orv.order_id
+    WHERE o.status = 'Delivered'
+      AND o.order_date BETWEEN '2021-01-01' AND '2024-06-30'
+    GROUP BY o.employee_id
+)
+
+SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    e.role,
+    r.region_name,
+    COALESCE(es.total_delivered_orders, 0) AS total_delivered_orders,
+    ROUND(COALESCE(es.total_revenue, 0), 2) AS total_revenue,
+    ROUND(COALESCE(es.avg_order_value, 0), 2) AS avg_order_value,
+    ROUND(COALESCE(es.best_single_order, 0), 2) AS best_single_order,
+    CASE
+        WHEN COALESCE(es.total_revenue, 0) > 5000000 THEN 'Elite'
+        WHEN COALESCE(es.total_revenue, 0) BETWEEN 1000000 AND 5000000 THEN 'Strong'
+        WHEN COALESCE(es.total_revenue, 0) BETWEEN 100000 AND 999999 THEN 'Developing'
+        ELSE 'Inactive'
+    END AS performance_band
+FROM employees e
+JOIN regions r
+    ON e.region_id = r.region_id
+LEFT JOIN employee_sales es
+    ON e.employee_id = es.employee_id
+ORDER BY total_revenue DESC, employee_name ASC;
