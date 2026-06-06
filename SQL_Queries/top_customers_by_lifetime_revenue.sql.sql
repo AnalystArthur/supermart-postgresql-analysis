@@ -1,4 +1,4 @@
-Top 5 customers by total lifetime revenue (all statuses, all order items). 
+-- Top 5 customers by total lifetime revenue (all statuses, all order items). 
 
 SELECT
     c.first_name || ' ' || c.last_name AS full_name,
