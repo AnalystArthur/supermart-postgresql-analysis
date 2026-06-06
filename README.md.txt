@@ -1,4 +1,4 @@
-# SuperMart PostgreSQL Analysis Project
+#SuperMart PostgreSQL Analysis Project
 
 ## Overview
 
