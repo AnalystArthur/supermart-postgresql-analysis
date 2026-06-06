@@ -1,5 +1,5 @@
--- Using a CTE, identify the single best-selling product (by total quantity sold) in each category. Display 
--- category_name, product_name, and total_qty_sold. 
+-- Single best-selling product (by total quantity sold) in each category.
+
 WITH total_quantity AS (
     SELECT
         oi.product_id,
