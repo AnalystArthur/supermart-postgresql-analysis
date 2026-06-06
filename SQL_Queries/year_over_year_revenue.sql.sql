@@ -1,6 +1,4 @@
--- Using a CTE, compute the year-over-year total revenue from delivered orders for each year in the 
--- dataset (2021, 2022, 2023, and the first half of 2024). Display order_year and total_revenue (rounded to 
--- 2 dp). Order by year ascending. 
+-- Using a CTE, compute the year-over-year total revenue from delivered orders for each year in the  dataset (2021, 2022, 2023, and the first half of 2024). Display order_year and total_revenue (rounded to 2 dp). Order by year ascending. 
 
 WITH delivered_revenue AS (
     SELECT
