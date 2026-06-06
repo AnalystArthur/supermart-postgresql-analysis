@@ -1,5 +1,4 @@
--- Using subqueries, find the top 5 customers by total lifetime revenue (all statuses, all order items). 
--- Display their full name, city, and total lifetime revenue rounded to 2 decimal places. 
+Top 5 customers by total lifetime revenue (all statuses, all order items). 
 
 SELECT
     c.first_name || ' ' || c.last_name AS full_name,
