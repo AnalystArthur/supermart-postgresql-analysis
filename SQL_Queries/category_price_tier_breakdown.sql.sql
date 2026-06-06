@@ -1,6 +1,4 @@
--- Using a single query with CASE inside an aggregate, count how many products in each category fall 
--- into each price tier. Display one row per category with columns: category_name, budget_count, 
--- mid_range_count, premium_count. 
+-- Using a single query with CASE inside an aggregate, count how many products in each category fall into each price tier. Display one row per category with columns: category_name, budget_count, mid_range_count, premium_count. 
 
 SELECT
     c.category_name,
